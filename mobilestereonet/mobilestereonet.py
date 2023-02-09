@@ -4,7 +4,7 @@ import cv2
 import numpy as np
 import onnx
 import onnxruntime
-# print(onnxruntime.get_device())
+print('onnx device: ', onnxruntime.get_device())
 
 from .utils import draw_disparity, CameraConfig, download_gdrive_file_model
 
@@ -31,7 +31,7 @@ class MobileStereoNet():
 
 	def initialize_model(self, model_path):
 
-		self.session = onnxruntime.InferenceSession(model_path)
+		self.session = onnxruntime.InferenceSession(model_path, providers=['CUDAExecutionProvider'])
 
 		# Get model info
 		self.getModel_input_details()
